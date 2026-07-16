@@ -1,0 +1,60 @@
+@use "Reset";
+
+.skip-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    transform: translateY(-100%);
+    transition: transform 0.2s ease;
+
+    &:focus-visible {
+        transform: translateY(0);
+    }
+}
+
+.header {
+    background: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__logo {
+    background: red;
+}
+
+.header__nav {}
+
+.header__nav-list {
+    background: yellow;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+}
+
+.header__contact {}
+
+.header__contact-list {
+    background: green;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+
+}
+
+.header__lang {}
+
+.header__lang-list {
+    background: pink;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+}
