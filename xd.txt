@@ -1,0 +1,868 @@
+Project Path: Portfolio
+
+Source Tree:
+
+```txt
+Portfolio
+├── LICENSE
+├── README.md
+├── eslint.config.js
+├── index.html
+├── mise.toml
+├── package.json
+├── pnpm-workspace.yaml
+├── src
+│   ├── App.tsx
+│   ├── components
+│   │   └── Header
+│   │       ├── Header.scss
+│   │       └── Header.tsx
+│   ├── main.tsx
+│   └── styles
+│       ├── abstracts
+│       │   ├── _breakpoints.scss
+│       │   ├── _index.scss
+│       │   ├── _mixins.scss
+│       │   ├── _typography.scss
+│       │   └── _variables.scss
+│       ├── base
+│       │   ├── _accessibility.scss
+│       │   ├── _base.scss
+│       │   ├── _index.scss
+│       │   └── _reset.scss
+│       ├── index.scss
+│       └── themes
+│           ├── _dark.scss
+│           ├── _index.scss
+│           └── _light.scss
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+├── vite.config.ts
+└── xd.txt
+
+```
+
+`LICENSE`:
+
+```
+MIT License
+
+Copyright (c) 2026 Kamil Fudala
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+```
+
+`README.md`:
+
+```md
+# Portfolio
+```
+
+`eslint.config.js`:
+
+```js
+import js from '@eslint/js'
+import globals from 'globals'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import tseslint from 'typescript-eslint'
+import { defineConfig, globalIgnores } from 'eslint/config'
+
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      js.configs.recommended,
+      tseslint.configs.recommended,
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite,
+    ],
+    languageOptions: {
+      globals: globals.browser,
+    },
+  },
+])
+
+```
+
+`index.html`:
+
+```html
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio</title>
+
+  <!-- Preconnect hint (optional but speeds things up for CDN-hosted fonts) -->
+  <!-- Not needed for @fontsource since it's self-hosted, but keep for Google Fonts if you ever switch -->
+
+  <!-- Load the font CSS directly in HTML so the browser finds it before JS runs -->
+  <link rel="stylesheet" href="/node_modules/@fontsource/m-plus-rounded-1c/400.css" />
+
+  <!-- Or, even better: preload the actual font file -->
+  <link rel="preload" href="/node_modules/@fontsource/m-plus-rounded-1c/files/m-plus-rounded-1c-latin-400-normal.woff2"
+    as="font" type="font/woff2" crossorigin />
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
+
+</html>
+
+```
+
+`mise.toml`:
+
+```toml
+[tools]
+node = "26.5"
+pnpm = "11.13"
+
+```
+
+`package.json`:
+
+```json
+{
+  "name": "portfolio",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource/m-plus-rounded-1c": "^5.2.10",
+    "lucide-react": "^1.24.0",
+    "modern-normalize": "^3.0.1",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.13.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "eslint": "^10.6.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.3",
+    "globals": "^17.7.0",
+    "sass": "^1.101.0",
+    "typescript": "~6.0.2",
+    "typescript-eslint": "^8.62.0",
+    "vite": "^8.1.1"
+  }
+}
+
+```
+
+`pnpm-workspace.yaml`:
+
+```yaml
+allowBuilds:
+  '@parcel/watcher': true
+
+```
+
+`src/App.tsx`:
+
+```tsx
+import { Header } from "./components/Header/Header";
+
+
+function App() {
+  return (
+    <>
+      <Header />
+    </>
+  );
+}
+
+export default App;
+
+```
+
+`src/components/Header/Header.scss`:
+
+```scss
+.header {
+    inline-size: 100%;
+
+    font-weight: var(--font-weight-regular);
+
+    &__nav {
+        display: flex;
+        align-items: center;
+
+        inline-size: 100%;
+
+        padding-block: var(--space-md);
+        padding-inline: var(--space-lg);
+    }
+
+    &__logo {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--space-xs);
+
+        margin-inline-end: auto;
+
+        font-size: 1.25rem;
+        font-weight: var(--font-weight-regular);
+        line-height: var(--line-height-heading);
+        letter-spacing: -0.02em;
+    }
+
+    &__actions {
+        display: flex;
+        align-items: center;
+        gap: var(--space-lg);
+    }
+
+    &__menu {
+        display: flex;
+        align-items: center;
+        gap: var(--space-lg);
+    }
+
+    &__menu-item {}
+
+    &__link {
+        font-weight: var(--font-weight-regular);
+    }
+
+    &__theme {}
+
+    &__divider {
+        inline-size: 1px;
+        block-size: 1.5rem;
+
+        flex-shrink: 0;
+
+        background: currentColor;
+        opacity: 0.25;
+    }
+
+    &__theme-group {
+        display: flex;
+        align-items: center;
+        gap: var(--space-xs);
+
+        margin: 0;
+        padding: 0;
+        border: 0;
+    }
+
+    &__theme-option {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-weight: var(--font-weight-regular);
+
+        cursor: pointer;
+    }
+
+    &__burger {
+        display: none;
+
+        font-weight: var(--font-weight-regular);
+    }
+}
+
+@media (width <=25rem) {
+    .header {
+
+        &__menu,
+        &__divider,
+        &__theme {
+            display: none;
+        }
+
+        &__burger {
+            display: block;
+        }
+    }
+}
+
+```
+
+`src/components/Header/Header.tsx`:
+
+```tsx
+import {
+    Mail,
+    Menu,
+    Moon,
+    Atom,
+    SunMedium,
+} from "lucide-react";
+
+import "./Header.scss";
+
+export function Header() {
+    return (
+        <>
+            <a className="skip-link" href="#main">
+                Skip to main content
+            </a>
+
+            <header className="header">
+                <nav
+                    className="header__nav"
+                    aria-label="Primary"
+                >
+                    <a
+                        className="header__logo"
+                        href="/"
+                        aria-current="page"
+                    >
+                        <Atom
+                            size={20}
+                            strokeWidth={1.5}
+                            aria-hidden="true"
+                        />
+
+                        <span>Kamil Fudala</span>
+                    </a>
+
+                    <div className="header__actions">
+                        <button
+                            className="header__burger"
+                            type="button"
+                            aria-label="Open navigation menu"
+                            aria-controls="primary-navigation"
+                            aria-expanded="false"
+                        >
+                            <Menu
+                                size={20}
+                                strokeWidth={1.5}
+                                aria-hidden="true"
+                            />
+                        </button>
+
+                        <ul
+                            id="primary-navigation"
+                            className="header__menu"
+                        >
+                            <li className="header__menu-item">
+                                <a
+                                    className="header__link"
+                                    href="#home"
+                                    aria-current="page"
+                                >
+                                    Home
+                                </a>
+                            </li>
+
+                            <li className="header__menu-item">
+                                <a
+                                    className="header__link"
+                                    href="#projects"
+                                >
+                                    Projects
+                                </a>
+                            </li>
+
+                            <li className="header__menu-item">
+                                <a
+                                    className="header__link"
+                                    href="mailto:kamil@example.com"
+                                    aria-label="Send an email to Kamil"
+                                >
+                                    <Mail
+                                        size={18}
+                                        strokeWidth={1.5}
+                                        aria-hidden="true"
+                                    />
+
+                                    <span className="sr-only">
+                                        Email
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div
+                            className="header__divider"
+                            aria-hidden="true"
+                        />
+
+                        <section
+                            className="header__theme"
+                            aria-labelledby="theme-selection"
+                        >
+                            <h2
+                                id="theme-selection"
+                                className="sr-only"
+                            >
+                                Theme selection
+                            </h2>
+
+                            <fieldset className="header__theme-group">
+                                <legend className="sr-only">
+                                    Color theme
+                                </legend>
+
+                                <label className="header__theme-option">
+                                    <input
+                                        className="sr-only"
+                                        type="radio"
+                                        name="theme"
+                                        value="light"
+                                        defaultChecked
+                                    />
+
+                                    <SunMedium
+                                        size={18}
+                                        strokeWidth={1.5}
+                                        aria-hidden="true"
+                                    />
+
+                                    <span className="sr-only">
+                                        Light theme
+                                    </span>
+                                </label>
+
+                                <label className="header__theme-option">
+                                    <input
+                                        className="sr-only"
+                                        type="radio"
+                                        name="theme"
+                                        value="dark"
+                                    />
+
+                                    <Moon
+                                        size={18}
+                                        strokeWidth={1.5}
+                                        aria-hidden="true"
+                                    />
+
+                                    <span className="sr-only">
+                                        Dark theme
+                                    </span>
+                                </label>
+                            </fieldset>
+                        </section>
+                    </div>
+                </nav>
+            </header>
+        </>
+    );
+}
+
+```
+
+`src/main.tsx`:
+
+```tsx
+import 'modern-normalize/modern-normalize.css';
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App";
+import './styles/index.scss';
+
+createRoot(document.getElementById("root")!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+);
+
+```
+
+`src/styles/abstracts/_breakpoints.scss`:
+
+```scss
+$mobile: 48rem;
+$tablet: 64rem;
+$desktop: 80rem;
+
+```
+
+`src/styles/abstracts/_index.scss`:
+
+```scss
+@forward './variables';
+@forward './typography';
+@forward './breakpoints';
+@forward './mixins';
+
+```
+
+`src/styles/abstracts/_typography.scss`:
+
+```scss
+:root {
+    --font-family:
+        "M PLUS Rounded 1c",
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+    --font-weight-black: 900;
+
+    --line-height-body: 1.6;
+}
+
+```
+
+`src/styles/abstracts/_variables.scss`:
+
+```scss
+:root {
+    /* Layout */
+
+    --container-width: 90rem;
+
+    /* Spacing */
+
+    --space-2xs: 0.25rem;
+    --space-xs: 0.5rem;
+    --space-sm: 0.75rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+
+    /* Radius */
+
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 1rem;
+    --radius-full: 9999px;
+
+    /* Motion */
+
+    --duration-fast: 150ms;
+    --duration-normal: 250ms;
+
+    /* Layers */
+
+    --z-dropdown: 100;
+    --z-sticky: 200;
+    --z-modal: 1000;
+    --z-skip-link: 1100;
+}
+
+```
+
+`src/styles/base/_accessibility.scss`:
+
+```scss
+.skip-link {
+    position: absolute;
+
+    inset-block-start: 0;
+    inset-inline-start: 0;
+
+    z-index: var(--z-skip-link);
+
+    transform: translateY(calc(-100% - 0.5rem));
+
+    transition: transform var(--duration-normal) ease;
+
+    &:focus-visible {
+        transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+}
+
+.sr-only {
+    position: absolute;
+
+    inline-size: 1px;
+    block-size: 1px;
+
+    margin: -1px;
+    padding: 0;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    border: 0;
+
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+```
+
+`src/styles/base/_base.scss`:
+
+```scss
+html {
+    font-family: var(--font-family);
+    line-height: var(--line-height-body);
+
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    margin: 0;
+
+    font-weight: var(--font-weight-regular);
+
+    color: var(--color-text);
+    background-color: var(--color-background);
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+ul,
+ol {
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+```
+
+`src/styles/base/_index.scss`:
+
+```scss
+@use './reset';
+@use './accessibility';
+@use './base';
+
+```
+
+`src/styles/base/_reset.scss`:
+
+```scss
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-block-size: 100vh;
+}
+
+img,
+picture,
+svg,
+video {
+    display: block;
+    max-inline-size: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+}
+
+```
+
+`src/styles/index.scss`:
+
+```scss
+@import '@fontsource/m-plus-rounded-1c/400.css';
+
+@use './abstracts';
+@use './base';
+@use './themes';
+
+```
+
+`src/styles/themes/_dark.scss`:
+
+```scss
+[data-theme="dark"] {
+    color-scheme: dark;
+}
+
+```
+
+`src/styles/themes/_index.scss`:
+
+```scss
+@use './light';
+@use './dark';
+
+```
+
+`src/styles/themes/_light.scss`:
+
+```scss
+:root {
+    color-scheme: light;
+}
+
+```
+
+`tsconfig.app.json`:
+
+```json
+{
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "target": "es2023",
+    "lib": [
+      "ES2023",
+      "DOM"
+    ],
+    "module": "esnext",
+    "types": [
+      "vite/client"
+    ],
+    "moduleResolution": "bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noEmit": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "skipLibCheck": true
+  },
+  "include": [
+    "src"
+  ]
+}
+
+```
+
+`tsconfig.json`:
+
+```json
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}
+
+```
+
+`tsconfig.node.json`:
+
+```json
+{
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+    "target": "es2023",
+    "lib": [
+      "ES2023"
+    ],
+    "types": [
+      "node"
+    ],
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "strict": true,
+    "noEmit": true,
+    "verbatimModuleSyntax": true,
+    "moduleDetection": "force",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitOverride": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "skipLibCheck": true
+  },
+  "include": [
+    "vite.config.ts"
+  ]
+}
+
+```
+
+`vite.config.ts`:
+
+```ts
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  plugins: [
+    react(),
+  ],
+  build: {
+    sourcemap: true,
+  },
+
+  server: {
+    port: 3000,
+    open: true,
+  },
+});
+
+```

@@ -1,61 +1,158 @@
-import './Header.scss';
+import {
+    Mail,
+    Menu,
+    Moon,
+    Origami,
+    SunMedium,
+} from "lucide-react";
+
+import "./Header.scss";
 
 export function Header() {
     return (
         <>
-            <a href="#main-content" className="skip-link">
+            <a className="skip-link" href="#main">
                 Skip to main content
             </a>
 
-            <header className="header" role="banner">
-                <a href="/" className="header__logo" aria-label="Kamil X - go to homepage">
-                    Kamil X
-                </a>
+            <header className="header">
+                <nav
+                    className="header__nav"
+                    aria-label="Primary"
+                >
+                    <a
+                        className="header__logo"
+                        href="/"
+                        aria-current="page"
+                    >
+                        <Origami
+                            size={20}
+                            strokeWidth={1.25}
+                            aria-hidden="true"
+                        />
 
-                <nav className="header__nav" aria-label="Primary navigation">
-                    <ul className="header__nav-list" role="list">
-                        <li>
-                            <a href="#home" aria-current="page">
-                                Home
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#projects">Projects</a>
-                        </li>
-                        <li>
-                            <a href="#contact">Contact</a>
-                        </li>
-                    </ul>
-                </nav>
+                        <span>Kamil Fudala</span>
+                    </a>
 
-                <address className="header__contact">
-                    <ul className="header__contact-list" role="list">
-                        <li>
-                            <a href="mailto:email@example.com" aria-label="Send email to email@example.com">
-                                email@example.com
-                            </a>
-                        </li>
-                        <li>
-                            <a href="tel:+48123456789" aria-label="Call +48 123 456 789">
-                                +48 123 456 789
-                            </a>
-                        </li>
-                    </ul>
-                </address>
+                    <div className="header__actions">
+                        <button
+                            className="header__burger"
+                            type="button"
+                            aria-label="Open navigation menu"
+                            aria-controls="primary-navigation"
+                            aria-expanded="false"
+                        >
+                            <Menu
+                                size={20}
+                                strokeWidth={1.25}
+                                aria-hidden="true"
+                            />
+                        </button>
 
-                <nav className="header__lang" aria-label="Language selection">
-                    <ul className="header__lang-list" role="list">
-                        <li>
-                            <a href="/en" lang="en" hrefLang="en" aria-current="true">
-                                English
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/pl" lang="pl" hrefLang="pl">
-                                Polski
-                            </a>
-                        </li>
-                    </ul>
+                        <ul
+                            id="primary-navigation"
+                            className="header__menu"
+                        >
+                            <li className="header__menu-item">
+                                <a
+                                    className="header__link"
+                                    href="#home"
+                                    aria-current="page"
+                                >
+                                    Home
+                                </a>
+                            </li>
+
+                            <li className="header__menu-item">
+                                <a
+                                    className="header__link"
+                                    href="#projects"
+                                >
+                                    Projects
+                                </a>
+                            </li>
+
+                            <li className="header__menu-item">
+                                <a
+                                    className="header__link"
+                                    href="mailto:kamil@example.com"
+                                    aria-label="Send an email to Kamil"
+                                >
+                                    <Mail
+                                        size={18}
+                                        strokeWidth={1.25}
+                                        aria-hidden="true"
+                                    />
+
+                                    <span className="sr-only">
+                                        Email
+                                    </span>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div
+                            className="header__divider"
+                            aria-hidden="true"
+                        />
+
+                        <section
+                            className="header__theme"
+                            aria-labelledby="theme-selection"
+                        >
+                            <h2
+                                id="theme-selection"
+                                className="sr-only"
+                            >
+                                Theme selection
+                            </h2>
+
+                            <fieldset className="header__theme-group">
+                                <legend className="sr-only">
+                                    Color theme
+                                </legend>
+
+                                <label className="header__theme-option">
+                                    <input
+                                        className="sr-only"
+                                        type="radio"
+                                        name="theme"
+                                        value="light"
+                                        defaultChecked
+                                    />
+
+                                    <SunMedium
+                                        size={18}
+                                        strokeWidth={1.25}
+                                        aria-hidden="true"
+                                    />
+
+                                    <span className="sr-only">
+                                        Light theme
+                                    </span>
+                                </label>
+
+                                <label className="header__theme-option">
+                                    <input
+                                        className="sr-only"
+                                        type="radio"
+                                        name="theme"
+                                        value="dark"
+                                    />
+
+                                    <Moon
+                                        size={18}
+                                        strokeWidth={1.25}
+                                        aria-hidden="true"
+                                    />
+
+                                    <span className="sr-only">
+                                        Dark theme
+                                    </span>
+                                </label>
+                            </fieldset>
+                        </section>
+                    </div>
                 </nav>
             </header>
         </>

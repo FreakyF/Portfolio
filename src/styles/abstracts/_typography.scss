@@ -1,0 +1,22 @@
+@font-face {
+    font-family: 'Quicksand';
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url('/fonts/Quicksand.woff2') format('woff2');
+}
+
+:root {
+    --font-family:
+        "Quicksand",
+        system-ui,
+        sans-serif;
+
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+    --font-weight-black: 900;
+
+    --line-height-body: 1.6;
+}
